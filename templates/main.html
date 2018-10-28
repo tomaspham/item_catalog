@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{{ super() }}
+{% block content %}
+    <div class="row main-content">
+        <div class="col-sm-3 categories-sidebar">
+            <h2>Categories:</h2>
+            {% for category in categories %}
+                <a href="{{ url_for('show_category',category_id=category.id) }}">{{ category.name }}</a>
+                <br>
+            {% endfor %}
+            <h3>New Item</h3>
+            {% if category %}
+                <a href="{{ url_for('add_item', category_id=category.id) }}">Add Item</a>
+            {% else %}
+                <a href="{{ url_for('add_item') }}">Add Item</a>
+            {% endif %}
+        </div>
+        <div class="col-sm-9 content-space">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

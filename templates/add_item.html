@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Add Item</h2>
+    <form action="{{ url_for('add_item') }}" method="POST">
+        <p>Name:</p>
+        <input type="text" size="30" name="name" value="{{ input_name }}">
+        <br>
+        <p>Description:</p>
+        <input type="text" size="50" name="description" value="{{ input_description }}">
+        <br>
+        <p>Category:</p>
+        <select name="category">
+            {% if not default %}
+                <option selected="selected" value="None">Select a category</option>
+            {% endif %}
+            {% for category in categories %}
+                {% if category.name == empty %}
+                    <option selected="selected" value="{{ category.name }}">{{ category.name }}</option>
+                {% else %}
+                    <option value="{{ category.name }}">{{ category.name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="Create">
+    </form>
+{% endblock %}
