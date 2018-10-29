@@ -10,7 +10,7 @@
         <br>
         <p>Category:</p>
         <select name="category">
-            {% if not default %}
+            {% if not empty %}
                 <option selected="selected" value="None">Select a category</option>
             {% endif %}
             {% for category in categories %}

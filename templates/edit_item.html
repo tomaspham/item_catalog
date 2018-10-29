@@ -14,7 +14,7 @@
                 <option selected="selected" value="None">Select a category</option>
             {% endif %}
             {% for category in categories %}
-                {% if category.name == default_cat %}
+                {% if category.name == empty %}
                     <option selected="selected" value="{{ category.name }}">{{ category.name }}</option>
                 {% else %}
                     <option value="{{ category.name }}">{{ category.name }}</option>

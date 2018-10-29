@@ -1,3 +1,5 @@
+# Imports
+# ===================
 from sqlalchemy import Column, ForeignKey, Integer, String, Text
 from sqlalchemy import asc
 from sqlalchemy import create_engine
@@ -7,8 +9,11 @@ from sqlalchemy.orm.exc import NoResultFound
 
 Base = declarative_base()
 
+# DB
+# ===================
+# Connect to database
 engine = create_engine('sqlite:///item_catalog.db')
-
+# Create session
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
@@ -17,15 +22,17 @@ session = DBSession()
 # User setup
 class User(Base):
     __tablename__ = 'user'
-
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
     email = Column(String(250))
     picture = Column(String)
 
 
+# User helper functions
 def create_user(login_session):
-    new_user = User(name=login_session['username'], email=login_session['email'], picture=login_session['picture'])
+    new_user = User(name=login_session['username'],
+                    email=login_session['email'],
+                    picture=login_session['picture'])
     session.add(new_user)
     session.commit()
     return new_user.id
@@ -47,7 +54,6 @@ def get_user_id(email: str) -> int:
 # Category setup
 class Category(Base):
     __tablename__ = 'category'
-
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
 
@@ -59,6 +65,7 @@ class Category(Base):
         }
 
 
+# Category helper functions
 def create_category(name: str) -> int:
     new_category = Category(name=name)
     session.add(new_category)
@@ -77,7 +84,8 @@ def get_category_id(name: str) -> int:
 
 
 def get_items_in_category(category_id: int) -> Query:
-    items_list = session.query(Item).join(Item.category).filter_by(id=category_id)
+    items_list = session.query(Item).join(Item.category).filter_by(
+        id=category_id)
     return items_list
 
 
@@ -89,7 +97,6 @@ def get_all_categories() -> Query:
 # Item setup
 class Item(Base):
     __tablename__ = 'item'
-
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
     description = Column(Text)
@@ -108,8 +115,11 @@ class Item(Base):
         }
 
 
-def create_item(name: str, description: str, category_id: int, user_id: int) -> Item:
-    new_item = Item(name=name, description=description, category_id=category_id, user_id=user_id)
+# Item helper functions
+def create_item(name: str, description: str, category_id: int,
+                user_id: int) -> Item:
+    new_item = Item(name=name, description=description,
+                    category_id=category_id, user_id=user_id)
     session.add(new_item)
     session.commit()
     return new_item
@@ -125,7 +135,8 @@ def delete_item(item: Query):
     session.commit()
 
 
-def edit_item(item: Query, name:str, description:str, category_id:int) -> Item:
+def edit_item(item: Query, name: str, description: str,
+              category_id: int) -> Item:
     item.name = name
     item.description = description
     item.category_id = category_id

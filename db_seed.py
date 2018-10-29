@@ -1,3 +1,5 @@
+# Imports
+#===================
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -41,12 +43,14 @@ def get_category_id(name):
 
 
 def get_items_in_category(category_name):
-    items_list = session.query(Item).join(Item.category).filter_by(name=category_name)
+    items_list = session.query(Item).join(Item.category).filter_by(
+        name=category_name)
     return items_list
 
 
 def create_item(name, description, category_id, user_id):
-    new_item = Item(name=name, description=description, category_id=category_id, user_id=user_id)
+    new_item = Item(name=name, description=description,
+                    category_id=category_id, user_id=user_id)
     session.add(new_item)
     session.commit()
     return new_item.id
