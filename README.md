@@ -28,3 +28,56 @@ delete their own items.
 * Category list: [http://localhost:5000/category](http://localhost:5000/category)
 * Specific category's items: [http://localhost:5000/category/\<category_id\>](http://localhost:5000/category/1)
 * Specific item information: [http://localhost:5000/category/\<category_id\>/\<item_id\>](http://localhost:5000/category/1/1)
+
+## Json structure examples:
+Main
+```json
+{
+  "Categories": [
+    {
+      "id": 1, 
+      "name": "Fake"
+    }, 
+    {
+      "id": 2, 
+      "name": "Something"
+    }, 
+    {
+      "id": 3, 
+      "name": "Foo"
+    }
+  ]
+}
+```
+Category
+```json
+{
+  "Category": "Fake", 
+  "Items": [
+    {
+      "category": "Fake", 
+      "description": "Fake item in our db", 
+      "id": 2, 
+      "name": "Item"
+    }, 
+    {
+      "category": "Fake", 
+      "description": "Fake record in our db", 
+      "id": 3, 
+      "name": "Record"
+    }
+  ]
+}
+```
+Item
+```json
+{
+  "Item": {
+    "category": "Fake", 
+    "description": "Fake item in our db", 
+    "id": 2, 
+    "name": "Item"
+  }
+}
+
+```
