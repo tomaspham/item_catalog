@@ -1,5 +1,5 @@
 # Imports
-#===================
+# ===================
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -57,7 +57,7 @@ def create_item(name, description, category_id, user_id):
 
 
 def add_users():
-    user_list: [[str]] = [
+    user_list = [
         ['admin user', 'admin@localhost.com', 'https://bit.ly/2PooNj6']
     ]
 
@@ -66,7 +66,7 @@ def add_users():
 
 
 def seed_categories():
-    category_list: [str] = [
+    category_list = [
         'Fake',
         'Something',
         'Foo'
@@ -77,7 +77,7 @@ def seed_categories():
 
 
 def seed_items():
-    item_list: [tuple] = [
+    item_list = [
         (
             'Bar',
             'Common variable name for testing purposes',

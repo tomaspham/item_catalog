@@ -22,6 +22,7 @@ session = DBSession()
 # User setup
 class User(Base):
     __tablename__ = 'user'
+
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
     email = Column(String(250))
@@ -54,6 +55,7 @@ def get_user_id(email: str) -> int:
 # Category setup
 class Category(Base):
     __tablename__ = 'category'
+
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
 
@@ -97,6 +99,7 @@ def get_all_categories() -> Query:
 # Item setup
 class Item(Base):
     __tablename__ = 'item'
+
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
     description = Column(Text)
@@ -136,7 +139,7 @@ def delete_item(item: Query):
 
 
 def edit_item(item: Query, name: str, description: str,
-              category_id: int) -> Item:
+              category_id: int) -> Query:
     item.name = name
     item.description = description
     item.category_id = category_id

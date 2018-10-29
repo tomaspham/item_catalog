@@ -137,9 +137,11 @@ def gconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += '" style = "width: 300px; height: 300px;' \
-              'border-radius: 150px;-webkit-border-radius: ' \
-              '150px;-moz-border-radius: 150px;"> '
+    output += '" style = "width: 300px;' \
+              'height: 300px;' \
+              'border-radius: 150px;' \
+              '-webkit-border-radius: 150px;' \
+              '-moz-border-radius: 150px;"> '
     flash('You are now logged in as {name}'.format(
         name=login_session['username']))
     return output
@@ -189,15 +191,23 @@ def disconnect():
 @app.route('/')
 @app.route('/category')
 def item_catalog():
-    """front page with recent added items"""
+    """
+    front page with recent added items
+    :return: rendered page with data
+    """
     categories = db.get_all_categories()
     items = session.query(Item).order_by(desc(Item.id)).limit(10)
     return render_template('latest_items.html', categories=categories,
                            items=items)
 
+
 @app.route('/category/<int:category_id>/')
-def show_category(category_id):
-    """category page"""
+def show_category(category_id: int):
+    """
+    category page
+    :param category_id: id of category in db
+    :return: rendered page with data
+    """
     categories = db.get_all_categories()
     cat = db.get_category(category_id)
     items = session.query(Item).filter_by(category_id=cat.id).order_by(
@@ -207,8 +217,13 @@ def show_category(category_id):
 
 
 @app.route('/category/<int:category_id>/<int:item_id>/')
-def show_item(category_id, item_id):
-    """item page"""
+def show_item(category_id: int, item_id: int):
+    """
+    item page
+    :param category_id: id of category in db
+    :param item_id: id of item in db
+    :return: rendered page with data
+    """
     categories = db.get_all_categories()
     category = db.get_category(category_id)
     item = db.get_item(item_id)
@@ -220,8 +235,12 @@ def show_item(category_id, item_id):
            methods=['GET', 'POST'])
 @app.route('/category/new/<int:category_id>/', methods=['GET', 'POST'])
 @login_required
-def add_item(category_id):
-    """add item page"""
+def add_item(category_id: int):
+    """
+    add item page
+    :param category_id: id of category in db
+    :return: rendered page with data
+    """
     categories = db.get_all_categories()
     if request.method == 'POST':
         name = request.form['name']
@@ -256,8 +275,13 @@ def add_item(category_id):
 @app.route('/category/<int:category_id>/<int:item_id>/edit/',
            methods=['GET', 'POST'])
 @login_required
-def edit_item(category_id, item_id):
-    """edit item page"""
+def edit_item(category_id: int, item_id: int):
+    """
+    edit item page
+    :param category_id: id of category in db
+    :param item_id: id of item in db
+    :return: rendered page with data
+    """
     categories = db.get_all_categories()
     category = db.get_category(category_id)
     item = db.get_item(item_id)
@@ -293,8 +317,13 @@ def edit_item(category_id, item_id):
 @app.route('/category/<int:category_id>/<int:item_id>/delete/',
            methods=['GET', 'POST'])
 @login_required
-def delete_item(category_id, item_id):
-    """delete item page"""
+def delete_item(category_id: int, item_id: int):
+    """
+    delete item page
+    :param category_id: id of category in db
+    :param item_id: id of item in db
+    :return: rendered page with data
+    """
     cat = db.get_category(category_id)
     item = db.get_item(item_id)
     user_id = login_session['user_id']
