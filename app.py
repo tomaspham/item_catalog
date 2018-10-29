@@ -178,11 +178,9 @@ def disconnect():
         del login_session['email']
         del login_session['picture']
         del login_session['provider']
-
         flash('You have been successfully logged out.')
     else:
         flash('You were not logged in.')
-
     return redirect(url_for('item_catalog'))
 
 
